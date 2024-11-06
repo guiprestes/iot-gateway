@@ -30,10 +30,8 @@ void readData() {
       reconnect();
     }
     if(client.publish("v1/devices/me/telemetry", data.c_str())) {
-      Serial.print("Dados Enviados! ");
-      Serial.println(data);
+      Serial.print("\nDados Enviados! -> " + data);
     }
-    client.loop();
   }
 }
 
@@ -63,11 +61,11 @@ void sendDataDashboardTester() {
 
 void reconnect() {
   while (!client.connected()) {
-    Serial.print("Reconectando ao broker MQTT...");
+    Serial.print("\nBuscando broker...");
     if (client.connect(BROKER_CID, BROKER_USER, BROKER_PSWD)) {
-      Serial.println("Conectado!");
+      Serial.println(" OK!");
     } else {
-      Serial.print("Falha: ao reconectar");
+      Serial.print("Falha ao reconectar: ");
       Serial.print(client.state());
       delay(5000);
     }
@@ -108,9 +106,4 @@ void setup() {
 
 void loop() {
   readData();
-//  if(!client.connected()) {
-//    reconnect();
-//  }
-//  sendDataDashboardTester();
-  client.loop();
 }
